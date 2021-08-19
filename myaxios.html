@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<head>
+    <title>MY Axios</title>
+</head>
+<body>
+    <script>
+        const url="http://jsonplaceholder.typicode.com/users"
+
+        const myAxios={
+            get:function(url){
+                const promiseObj=new Promise((resolve,reject)=>{
+                    const xhr=new XMLHttpRequest()
+                    xhr.open('GET',url)
+                    xhr.send()
+                    xhr.onload=function(){
+                        const data=JSON.parse(xhr.responseText)
+                        resolve(data)
+                    }
+                    xhr.onerror=function(){
+                        reject(new Error('something wemt wrong'))
+                    }
+                })
+                return promiseObj
+            }
+        }
+
+        //consuming data
+        myAxios.get(url)
+        .then((response)=>{
+            console.log(response)
+        }).catch((err)=>{
+            console.log(err.message)
+        })
+    </script>
+</body>
